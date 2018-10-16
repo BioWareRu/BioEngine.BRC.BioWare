@@ -72,33 +72,16 @@
     <ItemGroup>
         <MvcRazorFilesToCompile Include="Views\**\*.cshtml" />
     </ItemGroup>
-    <ItemGroup Condition="'@(WebpackOutputs)' == ''">
-        <!-- 
-          MSBuild skips a target if the Outputs item group evaluates to empty.
-          On the first build, there won't be any Webpack outputs (and we can't
-          predict what they will be because we don't know the hash results for
-          filenames), so instead we tell MSBuild there's an output file which
-          will never exist, which forces the target to always run on first
-          build.
-        -->
-        <WebpackOutputs Include="wwwroot\nonexistent.dat" />
-    </ItemGroup>
-    <ItemGroup>
-      <Content Include="Web\css\article-list.less" />
-      <Content Include="Web\css\body.less" />
-      <Content Include="Web\css\common.less" />
-      <Content Include="Web\css\footer.less" />
-      <Content Include="Web\css\header.less" />
-      <Content Include="Web\css\layout.less" />
-      <Content Include="Web\css\mixins.less" />
-      <Content Include="Web\css\variables.less" />
-      <Content Include="Web\js\bundles\page-common.ts" />
-    </ItemGroup>
-    <Target Name="BuildClientAssets" BeforeTargets="BeforeBuild;MvcRazorPrecompile" Inputs="@(WebpackInputs)" Outputs="@(WebpackOutputs)">
-        <Exec Command="node_modules\.bin\webpack --progress" />
+    <Target Condition=" '$(Configuration)' == 'Debug' " Name="BuildClientAssetsDebug" BeforeTargets="BeforeBuild" Inputs="@(WebpackInputs)" Outputs="@(WebpackOutputs)">
+        <Exec Command="node_modules\.bin\webpack --progress --mode development" />
         <ItemGroup>
             <MvcRazorFilesToCompile Include="Views\Shared\Assets\*.cshtml" />
         </ItemGroup>
     </Target>
-    <Target Name="PrecompileRazorViews" AfterTargets="Build;BuildClientAssets" DependsOnTargets="MvcRazorPrecompile" />
+    <Target Condition=" '$(Configuration)' == 'Release' " Name="BuildClientAssetsRelease" BeforeTargets="BeforeBuild">
+        <Exec Command="node_modules\.bin\webpack --progress --mode production" />
+        <ItemGroup>
+            <MvcRazorFilesToCompile Include="Views\Shared\Assets\*.cshtml" />
+        </ItemGroup>
+    </Target>
 </Project>
