@@ -1,5 +1,7 @@
-@model BioEngine.Core.Site.Model.ListModel<BioEngine.BRC.Domain.Entities.Developer, int>
-
+@model BioEngine.Core.Site.Model.ListViewModel<BioEngine.BRC.Domain.Entities.Developer, int>
+@{
+    Layout = "~/Views/_Main.cshtml";
+}
 <div>
     @foreach (var item in Model.Items)
     {

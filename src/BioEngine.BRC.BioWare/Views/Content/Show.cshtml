@@ -1,0 +1,6 @@
+@model BioEngine.Core.Site.Model.EntityViewModel<BioEngine.Core.Entities.ContentItem, int>
+@{
+    Layout = "~/Views/_Main.cshtml";
+}
+<h1>@Model.Entity.Title</h1>
+<p>@Html.Raw(Model.Entity)</p>

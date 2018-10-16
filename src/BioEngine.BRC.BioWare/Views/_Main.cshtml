@@ -1,0 +1,38 @@
+@model BioEngine.Core.Site.Model.PageViewModel
+
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    @{
+        var meta = await Model.GetMeta();
+    }
+    <title>@meta.Title</title>
+    <meta name="description" content="@Html.Raw(meta.Description)"/>
+    <meta name="keywords" content="@Html.Raw(meta.Keywords)"/>
+
+    <!-- Facebook Markup -->
+    <meta property="og:title" content="@Html.Raw(meta.Title)"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="@Html.Raw(meta.ImageUrl)"/>
+    <meta property="og:url" content="@Html.Raw(meta.CurrentUrl)"/>
+    <meta property="og:description" content="@Html.Raw(meta.Description)"/>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@@biowareru"/>
+    <meta name="twitter:title" content="@Html.Raw(meta.Title)"/>
+    <meta name="twitter:description" content="@Html.Raw(meta.Description)"/>
+    <meta property="twitter:image:src" content="@Html.Raw(meta.ImageUrl)"/>
+
+    <!-- G+ -->
+    <meta itemprop="name" content="@Html.Raw(meta.Title)"/>
+    <meta itemprop="description" content="@Html.Raw(meta.Description)"/>
+    <meta itemprop="image" content="@Html.Raw(meta.ImageUrl)"/>
+</head>
+<body>
+<main>
+    @RenderBody()
+</main>
+</body>
+</html>

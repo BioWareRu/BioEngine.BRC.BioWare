@@ -1,6 +1,7 @@
 ﻿using BioEngine.BRC.Domain.Entities;
 using BioEngine.Core;
 using BioEngine.Core.Infra;
+using BioEngine.Core.Site;
 using BioEngine.Extra.IPB;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ namespace BioEngine.BRC.BioWare
                 })
                 .AddBioEngineModule<InfraModule>()
                 .AddBioEngineModule<IPBSiteModule>()
+                .AddBioEngineModule<SiteModule>()
                 .UseStartup<Startup>();
     }
 }
