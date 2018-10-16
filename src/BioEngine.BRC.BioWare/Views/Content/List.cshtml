@@ -1,26 +1,40 @@
+@using System.Globalization
 @using BioEngine.Extra.IPB.Filters
 @model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.ContentItem, int>
 @{
     Layout = "~/Views/_Main.cshtml";
 }
-<h1>@Model.SiteTitle</h1>
-<div>
+<div class="article-list">
     @foreach (var item in Model.Items)
     {
-        <div>
-            <h1>
-                <a href="@item.PublicUrl">@item.Title</a>
-            </h1>
-            @{
-                var ipbFeature = Model.GetFeature<IPBPageFeature>(item);
-                if (ipbFeature != null)
-                {
-                    <div>
-                        Url: @ipbFeature.CommentsUrl<br/>
-                        Count: @ipbFeature.CommentsCountString<br/>
-                    </div>
-                }
-            }
-        </div>
+        <article class="article-list__item">
+            <header class="article-list__header">
+                <div class="article-list__title-wrap">
+                    <h2 class="article-list__title">
+                        <a class="article-list__permalink" href="@item.PublicUrl">@item.Title</a>
+                    </h2>
+                    <time class="article-list__date"
+                          datetime="@item.DateAdded.DateTime.ToString("yyyy-MM-dd hh:mm:ss")">
+                        @item.DateAdded.DateTime.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),&nbsp;@item.AuthorId</time>
+                </div>
+            </header>
+            <div class="b-text">
+                //content
+            </div>
+            <footer class="article-list__footer">
+
+
+                <div class="article-list__footer-controls">
+                    @{
+                        var ipbFeature = Model.GetFeature<IPBPageFeature>(item);
+                        if (ipbFeature != null)
+                        {
+                            <a class="article-list__comments" href="@ipbFeature.CommentsUrl">@Html.Raw(ipbFeature.CommentsCountString)</a>
+                        }
+                    }
+
+                </div>
+            </footer>
+        </article>
     }
 </div>

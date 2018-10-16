@@ -32,6 +32,8 @@ namespace BioEngine.BRC.BioWare
                 SupportedUICultures = supportedCultures
             });
 
+            app.UseStaticFiles();
+            
             app.UseMvc();
         }
     }

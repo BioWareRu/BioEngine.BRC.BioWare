@@ -1,3 +1,4 @@
+@using BioEngine.BRC.BioWare.Helpers
 @model BioEngine.Core.Site.Model.PageViewModel
 
 <!DOCTYPE html>
@@ -29,10 +30,47 @@
     <meta itemprop="name" content="@Html.Raw(meta.Title)"/>
     <meta itemprop="description" content="@Html.Raw(meta.Description)"/>
     <meta itemprop="image" content="@Html.Raw(meta.ImageUrl)"/>
+    @await Html.WebpackStylesAsync("page-common")
+    @RenderSection("styles", required: false)
 </head>
-<body>
-<main>
-    @RenderBody()
-</main>
+<body class="body_me3">
+<header class="header">
+    <div class="header__content">
+        <a href="/" class="header__logo-link">
+            <img src="/img/header__logo.png" alt="logo"/>
+        </a>
+        <nav class="header__menu">
+
+        </nav>
+    </div>
+</header>
+<div class="page-layout">
+    <main class="page-layout__content">
+        @RenderBody()
+    </main>
+</div>
+<!--footer-->
+<footer class="footer">
+    <div class="footer__content">
+        <a class="footer__logo" href="/">
+            <img class="footer__logo-img" src="/img/footer__logo.png" alt="bioware.ru"/>
+        </a>
+        <div class="footer__copyright-text">
+            При любом публичном использовании материалов сайта ссылка на <a href="/"
+                                                                            class="link-on-dark">
+                www.bioware.ru
+            </a>
+            обязательна. <br/>
+            Полное копирование допускается не иначе как с письменного разрешения администрации.
+        </div>
+        <address class="footer__contacts">
+            2005-@DateTime.Now.Year © <a class="link-on-dark" href="/">www.BioWare.ru</a>
+            <br>
+            <a href="mailto:bioteam@bioware.ru" class="link-on-dark">bioteam@bioware.ru</a>
+        </address>
+    </div>
+</footer>
+@await Html.WebpackScriptsAsync("page-common")
+@RenderSection("scripts", required: false)
 </body>
 </html>
