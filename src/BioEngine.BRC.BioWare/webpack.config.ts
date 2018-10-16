@@ -94,7 +94,7 @@ const config: webpack.Configuration = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([distPath + "/js", distPath + "/css"]),
+        new CleanWebpackPlugin([distPath + "/js", distPath + "/css", distPath + "/assets"]),
         new webpack.NoEmitOnErrorsPlugin(),
         //new ExtractTextPlugin('css/[name].[contenthash].' + (isDevelopment ? 'dev' : 'min') + '.css'),
         new MiniCssExtractPlugin({
