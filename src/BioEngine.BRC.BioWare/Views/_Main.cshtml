@@ -1,4 +1,4 @@
-@using BioEngine.BRC.BioWare.Helpers
+﻿@using BioEngine.BRC.BioWare.Helpers
 @model BioEngine.Core.Site.Model.PageViewModel
 
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width"/>
     @{
-        var meta = await Model.GetMeta();
+        var meta = await Model.GetMetaAsync();
     }
     <title>@meta.Title</title>
     <meta name="description" content="@Html.Raw(meta.Description)"/>
