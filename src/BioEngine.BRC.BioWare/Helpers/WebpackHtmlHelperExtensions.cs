@@ -7,8 +7,6 @@ namespace BioEngine.BRC.BioWare.Helpers
 {
     public static class WebpackHtmlHelperExtensions
     {
-        private static string _aspnetCoreEnvironment = null;
-
         /// <summary>
         /// Return the generated partial view that contains the script tags for the Webpack bundle
         /// indicated by <see cref="bundleName"/>.
@@ -37,6 +35,7 @@ namespace BioEngine.BRC.BioWare.Helpers
         /// Emits a script tag with type application/json that Webpack scripts can then load to
         /// retrieve data from the page.
         /// </summary>
+        /// <param name="helper"></param>
         /// <param name="id">The ID that webpack will load the data block by.</param>
         /// <param name="data">The data object that will be serialized to JSON.</param>
         /// <returns></returns>
