@@ -80,7 +80,7 @@
     </Target>
     <Target Condition=" '$(Configuration)' == 'Release' " Name="BuildClientAssetsRelease" BeforeTargets="BeforeBuild">
         <Exec Command="npm install" />
-        <Exec Command="node_modules\.bin\webpack --progress --mode production" />
+        <Exec Command="node_modules\.bin\webpack --mode production" />
         <ItemGroup>
             <MvcRazorFilesToCompile Include="Views\Shared\Assets\*.cshtml" />
         </ItemGroup>
