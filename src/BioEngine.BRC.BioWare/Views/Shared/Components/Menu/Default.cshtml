@@ -1,0 +1,4 @@
+@using BioEngine.BRC.BioWare.ViewComponents
+@model BioEngine.Core.Entities.Menu
+
+@await Html.PartialAsync("Menu", new MenuLevel {Items = Model.Items, Level = 0})

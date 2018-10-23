@@ -72,6 +72,12 @@
     <ItemGroup>
         <MvcRazorFilesToCompile Include="Views\**\*.cshtml" />
     </ItemGroup>
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Components\Menu\Default.cshtml" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Web\js\common\header.ts" />
+    </ItemGroup>
     <Target Condition=" '$(Configuration)' == 'Debug' " Name="BuildClientAssetsDebug" BeforeTargets="BeforeBuild" Inputs="@(WebpackInputs)" Outputs="@(WebpackOutputs)">
         <Exec Command="node_modules\.bin\webpack --progress --mode development" />
         <ItemGroup>
