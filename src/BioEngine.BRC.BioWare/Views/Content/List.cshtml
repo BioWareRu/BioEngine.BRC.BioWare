@@ -1,5 +1,5 @@
-@using System.Globalization
-@using BioEngine.Extra.IPB.Filters
+@using BioEngine.Core.Entities
+@using BioEngine.Core.Site.Model
 @model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.ContentItem, int>
 @{
     Layout = "~/Views/_Main.cshtml";
@@ -7,34 +7,6 @@
 <div class="article-list">
     @foreach (var item in Model.Items)
     {
-        <article class="article-list__item">
-            <header class="article-list__header">
-                <div class="article-list__title-wrap">
-                    <h2 class="article-list__title">
-                        <a class="article-list__permalink" href="@item.PublicUrl">@item.Title</a>
-                    </h2>
-                    <time class="article-list__date"
-                          datetime="@item.DateAdded.DateTime.ToString("yyyy-MM-dd hh:mm:ss")">
-                        @item.DateAdded.DateTime.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),&nbsp;@item.Author.Name</time>
-                </div>
-            </header>
-            <div class="b-text">
-                //content
-            </div>
-            <footer class="article-list__footer">
-
-
-                <div class="article-list__footer-controls">
-                    @{
-                        var ipbFeature = Model.GetFeature<IPBPageFeature>(item);
-                        if (ipbFeature != null)
-                        {
-                            <a class="article-list__comments" href="@ipbFeature.CommentsUrl">@Html.Raw(ipbFeature.CommentsCountString)</a>
-                        }
-                    }
-
-                </div>
-            </footer>
-        </article>
+        await Html.RenderPartialAsync("Content/Show", new ContentViewModel<ContentItem>(item, ContentViewMode.Short));
     }
 </div>

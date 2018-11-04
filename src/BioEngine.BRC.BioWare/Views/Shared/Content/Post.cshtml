@@ -1,0 +1,8 @@
+@using BioEngine.Core.Site.Model
+@model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.BRC.Domain.Entities.Post>
+
+@Html.Raw(Model.Item.GetShortText())
+@if (Model.Mode == ContentViewMode.Full)
+{
+    @Html.Raw(Model.Item.GetFullText())
+}

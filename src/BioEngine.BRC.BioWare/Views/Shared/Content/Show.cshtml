@@ -1,0 +1,56 @@
+@using System.Globalization
+@using BioEngine.BRC.Domain.Entities
+@using BioEngine.Core.Site.Filters
+@using BioEngine.Core.Site.Model
+@using BioEngine.Extra.IPB.Filters
+@model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.Core.Entities.ContentItem>
+@inject PageFeaturesCollection FeaturesCollection
+
+<article class="article-list__item">
+    <header class="article-list__header">
+        <div class="article-list__title-wrap">
+            <h2 class="article-list__title">
+                @switch (Model.Mode)
+                {
+                    case ContentViewMode.Short:
+                        <a class="article-list__permalink" href="@Model.Item.PublicUrl">@Model.Item.Title</a>
+                        break;
+                    case ContentViewMode.Full:
+                        @Model.Item.Title
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            </h2>
+            <time class="article-list__date"
+                  datetime="@Model.Item.DateAdded.DateTime.ToString("yyyy-MM-dd hh:mm:ss")">
+                @Model.Item.DateAdded.DateTime.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture),&nbsp;@Model.Item.Author.Name</time>
+        </div>
+    </header>
+    <div class="b-text">
+        !!!
+        @switch (Model.Item)
+        {
+            case Post post:
+                await Html.RenderPartialAsync("Content/Post", new ContentViewModel<Post>(post, Model.Mode));
+                break;
+            default:
+                <div>CONTENT</div>
+                break;
+        }
+    </div>
+    <footer class="article-list__footer">
+
+
+        <div class="article-list__footer-controls">
+            @{
+                var ipbFeature = FeaturesCollection.GetFeature<IPBPageFeature>(Model.Item);
+                if (ipbFeature != null)
+                {
+                    <a class="article-list__comments" href="@ipbFeature.CommentsUrl">@Html.Raw(ipbFeature.CommentsCountString)</a>
+                }
+            }
+
+        </div>
+    </footer>
+</article>
