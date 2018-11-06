@@ -9,4 +9,5 @@
     {
         await Html.RenderPartialAsync("Content/Show", new ContentViewModel<ContentItem>(item, ContentViewMode.Short));
     }
+    <vc:pager page="@Model.Page" total-items="@Model.TotalItems" items-per-page="@Model.ItemsPerPage"></vc:pager>
 </div>
