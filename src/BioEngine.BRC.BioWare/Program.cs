@@ -1,5 +1,6 @@
 ﻿using BioEngine.BRC.Domain.Entities;
 using BioEngine.Core;
+using BioEngine.Core.Entities.Blocks;
 using BioEngine.Core.Infra;
 using BioEngine.Core.Site;
 using BioEngine.Extra.IPB;
@@ -21,9 +22,9 @@ namespace BioEngine.BRC.BioWare
             WebHost.CreateDefaultBuilder(args)
                 .AddBioEngineModule<CoreModule, CoreModuleConfig>(config =>
                 {
-                    config.Assemblies.Add(typeof(Post).Assembly);
+                    config.Assemblies.Add(typeof(Developer).Assembly);
                     config.EnableValidation = true;
-                    config.MigrationsAssembly = typeof(Post).Assembly;
+                    config.MigrationsAssembly = typeof(Developer).Assembly;
                 })
                 .AddBioEngineModule<InfraModule>()
                 .AddBioEngineModule<IPBSiteModule>()
