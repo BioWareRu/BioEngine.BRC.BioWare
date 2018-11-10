@@ -1,13 +1,13 @@
 @using BioEngine.Core.Entities
 @using BioEngine.Core.Site.Model
-@model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.ContentItem, int>
+@model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.Post, int>
 @{
     Layout = "~/Views/_Main.cshtml";
 }
 <div class="article-list">
     @foreach (var item in Model.Items)
     {
-        await Html.RenderPartialAsync("Content/Show", new ContentViewModel<ContentItem>(item, ContentViewMode.Short));
+        await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(item, ContentViewMode.Short));
     }
     <vc:pager page="@Model.Page" total-items="@Model.TotalItems" items-per-page="@Model.ItemsPerPage"></vc:pager>
 </div>

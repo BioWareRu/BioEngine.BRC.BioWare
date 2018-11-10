@@ -1,9 +1,10 @@
 @using System.Globalization
 @using BioEngine.BRC.Domain.Entities
+@using BioEngine.Core.Entities.Blocks
 @using BioEngine.Core.Site.Filters
 @using BioEngine.Core.Site.Model
 @using BioEngine.Extra.IPB.Filters
-@model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.Core.Entities.ContentItem>
+@model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.Core.Entities.Post>
 @inject PageFeaturesCollection FeaturesCollection
 
 <article class="article-list__item">
@@ -28,15 +29,19 @@
         </div>
     </header>
     <div class="b-text">
-        @switch (Model.Item)
+        @foreach (var block in Model.Item.Blocks)
         {
-            case Post post:
-                await Html.RenderPartialAsync("Content/Post", new ContentViewModel<Post>(post, Model.Mode));
-                break;
-            default:
-                <div>CONTENT</div>
-                break;
+            switch (block)
+             {
+                 case TextBlock post:
+                     await Html.RenderPartialAsync("Content/Post", post);
+                     break;
+                 default:
+                     <div>CONTENT</div>
+                     break;
+             }
         }
+
     </div>
     <footer class="article-list__footer">
 

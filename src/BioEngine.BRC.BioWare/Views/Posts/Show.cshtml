@@ -1,0 +1,11 @@
+@using BioEngine.Core.Entities
+@using BioEngine.Core.Site.Model
+@model BioEngine.Core.Site.Model.EntityViewModel<BioEngine.Core.Entities.Post, int>
+@{
+    Layout = "~/Views/_Main.cshtml";
+}
+<div class="article-list">
+    @{
+        await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full));  
+    }
+</div>
