@@ -29,19 +29,33 @@
         </div>
     </header>
     <div class="b-text">
-        @foreach (var block in Model.Item.Blocks)
-        {
-            switch (block)
-             {
-                 case TextBlock post:
-                     await Html.RenderPartialAsync("Content/Post", post);
-                     break;
-                 default:
-                     <div>CONTENT</div>
-                     break;
-             }
+        @{
+            var allBlocksRendered = false;
+            foreach (var block in Model.Item.Blocks)
+            {
+                switch (block)
+                {
+                    case TextBlock text:
+                        await Html.RenderPartialAsync("Content/Post", new BlockViewModel<TextBlock,TextBlockData>(text, Model.Item));
+                        break;
+                    case CutBlock cut:
+                        if (Model.Mode == ContentViewMode.Full)
+                        {
+                            continue;
+                        }
+                        await Html.RenderPartialAsync("Content/Cut", new BlockViewModel<CutBlock,CutBlockData>(cut, Model.Item));
+                        allBlocksRendered = true;
+                        break;
+                    default:
+                        <div>CONTENT</div>
+                        break;
+                }
+                if (allBlocksRendered)
+                {
+                    break;
+                }
+            }
         }
-
     </div>
     <footer class="article-list__footer">
 
