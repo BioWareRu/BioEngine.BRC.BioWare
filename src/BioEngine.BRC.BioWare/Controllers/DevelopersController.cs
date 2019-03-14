@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace BioEngine.BRC.BioWare.Controllers
 {
     [Route("/developers")]
-    public class DevelopersController : SiteController<Developer, int>
+    public class DevelopersController : SiteController<Developer>
     {
-        public DevelopersController(SiteControllerContext<Developer, int> context) : base(context)
+        public DevelopersController(SiteControllerContext<Developer> context) : base(context)
         {
         }
     }

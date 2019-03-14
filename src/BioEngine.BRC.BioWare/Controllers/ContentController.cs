@@ -6,9 +6,9 @@ namespace BioEngine.BRC.BioWare.Controllers
 {
     [Route("/")]
     [Route("/content")]
-    public class ContentController : ContentItemController<Post, int>
+    public class ContentController : ContentItemController<Post>
     {
-        public ContentController(SiteControllerContext<Post, int> context) : base(context)
+        public ContentController(SiteControllerContext<Post> context) : base(context)
         {
         }
     }

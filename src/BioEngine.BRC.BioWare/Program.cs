@@ -1,6 +1,5 @@
 ﻿using BioEngine.BRC.Domain.Entities;
 using BioEngine.Core;
-using BioEngine.Core.Entities.Blocks;
 using BioEngine.Core.Infra;
 using BioEngine.Core.Site;
 using BioEngine.Extra.IPB;
