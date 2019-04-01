@@ -24,6 +24,7 @@ namespace BioEngine.BRC.BioWare
                     config.Assemblies.Add(typeof(Developer).Assembly);
                     config.EnableValidation = true;
                     config.MigrationsAssembly = typeof(Developer).Assembly;
+                    config.EnableElasticSearch = true;
                 })
                 .AddBioEngineModule<InfraModule>()
                 .AddBioEngineModule<IPBSiteModule>()
