@@ -31,7 +31,7 @@
     <meta itemprop="description" content="@Html.Raw(meta.Description)"/>
     <meta itemprop="image" content="@Html.Raw(meta.ImageUrl)"/>
     @await Html.WebpackStylesAsync("page-common")
-    @RenderSection("styles", required: false)
+    @RenderSection("styles", false)
 </head>
 <body class="body_me3">
 <header class="header">

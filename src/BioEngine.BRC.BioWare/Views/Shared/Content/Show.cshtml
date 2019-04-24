@@ -1,5 +1,4 @@
 @using System.Globalization
-@using BioEngine.Core.Entities.Blocks
 @using BioEngine.Core.Site.Filters
 @using BioEngine.Core.Site.Model
 @using BioEngine.Extra.IPB.Filters
@@ -29,31 +28,7 @@
     </header>
     <div class="b-text">
         @{
-            var allBlocksRendered = false;
-            foreach (var block in Model.Item.Blocks)
-            {
-                switch (block)
-                {
-                    case TextBlock text:
-                        await Html.RenderPartialAsync("Content/Post", new BlockViewModel<TextBlock,TextBlockData>(text, Model.Item));
-                        break;
-                    case CutBlock cut:
-                        if (Model.Mode == ContentViewMode.Full)
-                        {
-                            continue;
-                        }
-                        await Html.RenderPartialAsync("Content/Cut", new BlockViewModel<CutBlock,CutBlockData>(cut, Model.Item));
-                        allBlocksRendered = true;
-                        break;
-                    default:
-                        <div>@block.TypeTitle</div>
-                        break;
-                }
-                if (allBlocksRendered)
-                {
-                    break;
-                }
-            }
+            await Html.RenderPartialAsync("Blocks/Blocks", new ContentEntityViewModel(Model.Item, Model.Mode));
         }
     </div>
     <footer class="article-list__footer">

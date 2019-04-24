@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BioEngine.BRC.BioWare.Controllers
 {
     [Route("/")]
-    [Route("/content")]
-    public class ContentController : ContentItemController<Post>
+    [Route("post")]
+    public class PostsController : ContentItemController<Post>
     {
-        public ContentController(SiteControllerContext<Post> context) : base(context)
+        public PostsController(SiteControllerContext<Post> context) : base(context)
         {
         }
     }

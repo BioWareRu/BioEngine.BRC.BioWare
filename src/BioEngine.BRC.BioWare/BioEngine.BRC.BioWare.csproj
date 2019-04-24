@@ -76,7 +76,12 @@
       <_ContentIncludedByDefault Remove="Views\Components\Menu\Default.cshtml" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Web\css\blocks.less" />
+      <Content Include="Web\css\blocks\youtube.less" />
       <Content Include="Web\js\common\header.ts" />
+    </ItemGroup>
+    <ItemGroup>
+      <TypeScriptCompile Include="Web\js\common\blocks\youtube.ts" />
     </ItemGroup>
     <Target Condition=" '$(Configuration)' == 'Debug' " Name="BuildClientAssetsDebug" BeforeTargets="BeforeBuild" Inputs="@(WebpackInputs)" Outputs="@(WebpackOutputs)">
         <Exec Command="node_modules\.bin\webpack --progress --mode development" />

@@ -1,0 +1,21 @@
+@model BioEngine.Core.Site.Model.BlockViewModel<BioEngine.Core.Entities.Blocks.GalleryBlock, BioEngine.Core.Entities.Blocks.GalleryBlockData>
+
+@if (Model.Block.Data.Pictures.Length == 1)
+{
+    <p style="text-align:center">
+        <img style="max-width:80%" src="@Model.Block.Data.Pictures.First().PublicUri">
+    </p>
+}
+else
+{
+    <div style="display: flex">
+        @foreach (var picture in Model.Block.Data.Pictures)
+        {
+            <div>
+                <a href="@picture.PublicUri" target="_blank">
+                    <img src="@picture.PictureInfo.SmallThumbnail.PublicUri"/>
+                </a>
+            </div>
+        }
+    </div>
+}
