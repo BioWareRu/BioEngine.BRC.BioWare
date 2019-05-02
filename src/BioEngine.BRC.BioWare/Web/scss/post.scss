@@ -1,0 +1,26 @@
+.card.post {
+    .author {
+        img {
+            height: 20px;
+        }
+        
+        margin-bottom: 10px;
+    }
+
+    .sections {
+        margin-bottom: 25px;
+    }
+    
+    .block {
+        margin-bottom: 10px;
+    }
+
+    .tags {
+        font-size: 0.8em;
+
+        a {
+            color: #999;
+        }
+    }
+
+}

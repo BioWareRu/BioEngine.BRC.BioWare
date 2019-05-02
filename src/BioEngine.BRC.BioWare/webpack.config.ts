@@ -1,51 +1,19 @@
-import * as webpack from 'webpack';
-import * as path from 'path';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import * as fs from 'fs';
-
+const path = require('path');
+const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const autoprefixer = require('autoprefixer');
-
-const srcPath = path.join(__dirname, '/Web'),
-    distPath = path.join(__dirname, '/wwwroot');
-
-
-// This defines all the bundles that get generated, including the .cshtml files
-// that get generated so we can include assets in views.
-const bundles = fs.readdirSync(path.join(__dirname, '/Web/js/bundles')).map((value) => value.substring(0, value.length - 3));
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env, argv) => {
-    const isDevelopment = argv.mode === 'development';
     return {
-        cache: true,
-        devtool: 'source-map',
-        context: srcPath,
-        entry: {
-            'polyfills': [
-                'core-js',
-            ],
-            ...bundles.reduce((map, value) => {
-                // builds a JS hashmap like {'page-login': 'js/page-login.ts', 'page-default': 'js/page-default.ts', ...}
-                map[value] = [
-                    './js/bundles/' + value + '.ts',
-                ];
-                return map;
-            }, {})
-        },
+        entry: [path.resolve(__dirname, 'Web/index.ts')],
         output: {
-            path: distPath,
-            filename: 'js/[name].[chunkhash].' + (isDevelopment ? 'dev' : 'min') + '.js',
-            publicPath: '/',
+            path: path.resolve(__dirname, 'wwwroot/dist'),
+            filename: 'bundle.js',
         },
-        resolve: {
-            extensions: ['.ts', '.tsx', '.js'],
-            modules: ["node_modules"],
-        },
+        mode: argv.mode,
         module: {
             rules: [
                 {
@@ -61,97 +29,87 @@ module.exports = (env, argv) => {
                     ]
                 },
                 {
-                    test: /\.(less|css)/,
-                    use: [
-                        {
-                            loader: MiniCssExtractPlugin.loader
-                        },
-                        {
-                            loader: "css-loader",
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: () => autoprefixer({
-                                    browsers: ['last 3 versions', '> 1%']
-                                })
-                            }
-                        },
-                        {
-                            loader: 'less-loader'
-                        },
-                    ]
+                    test: /\.html$/,
+                    loader: 'html-loader',
+                    options: {
+                        minimize: true,
+                        removeComments: true,
+                        collapseWhitespace: true,
+                    },
                 },
                 {
-                    test: /\.(png|jpg|eot|ttf|svg|woff|woff2|gif)$/,
-                    use: [
-                        {
-                            loader: "file-loader",
-                            options: {
-                                outputPath: 'assets/',
-                                name: '[name].[hash].[ext]',
-                            }
-                        }
-                    ]
-                }
-            ]
+                    test: /\.(sa|sc)ss$/,
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                },
+                {
+                    test: /\.(jpe?g|png|gif)$/,
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'assets/',
+                        publicPath: "/dist/assets"
+                    },
+                },
+                {
+                    test: /\.(eot|svg|ttf|woff2?|otf)$/,
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: 'assets/',
+                        publicPath: "/dist/assets"
+                    },
+                },
+            ],
         },
         plugins: [
-            new CleanWebpackPlugin([distPath + "/js", distPath + "/css", distPath + "/assets"]),
-            new webpack.NoEmitOnErrorsPlugin(),
-            //new ExtractTextPlugin('css/[name].[contenthash].' + (isDevelopment ? 'dev' : 'min') + '.css'),
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+                'window.$': 'jquery',
+                'window.jQuery': 'jquery',
+                Waves: 'node-waves',
+                _: 'underscore',
+                Promise: 'es6-promise',
+            }),
             new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash].' + (isDevelopment ? 'dev' : 'min') + '.css',
+                filename: argv.mode !== 'production' ? '[name].css' : '[name].[hash].css',
+                chunkFilename: argv.mode !== 'production' ? '[id].css' : '[id].[hash].css',
+                cssProcessorOptions: {
+                    safe: true,
+                    discardComments: {
+                        removeAll: true,
+                    },
+                },
             }),
-            ...bundles.filter(x => x.startsWith("page-")).map((value) => {
-                return new HtmlWebpackPlugin({
-                    filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_' + value + '_Scripts.cshtml'),
-                    template: path.join(__dirname, '/Views/Shared/Assets/_ScriptsTemplate.cshtml'),
-                    chunks: ['polyfills', value],
-                    inject: false,
-                    chunksSortMode: 'manual',
-                })
-            }),
-            ...bundles.filter(x => x.startsWith("page-")).map((value) => {
-                return new HtmlWebpackPlugin({
-                    filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_' + value + '_Styles.cshtml'),
-                    template: path.join(__dirname, '/Views/Shared/Assets/_StylesTemplate.cshtml'),
-                    chunks: ['polyfills', value],
-                    inject: false,
-                    chunksSortMode: 'manual',
-                })
-            }),
-            ...bundles.filter(x => !x.startsWith("page-")).map((value) => {
-                return new HtmlWebpackPlugin({
-                    filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_' + value + '_Scripts.cshtml'),
-                    template: path.join(__dirname, '/Views/Shared/Assets/_ScriptsTemplate.cshtml'),
-                    chunks: [value],
-                    inject: false,
-                    chunksSortMode: 'manual',
-                })
-            }),
-            ...bundles.filter(x => !x.startsWith("page-")).map((value) => {
-                return new HtmlWebpackPlugin({
-                    filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_' + value + '_Styles.cshtml'),
-                    template: path.join(__dirname, '/Views/Shared/Assets/_StylesTemplate.cshtml'),
-                    chunks: [value],
-                    inject: false,
-                    chunksSortMode: 'manual',
-                })
-            }),
-            ...(isDevelopment ? [] : [
-                new UglifyJsPlugin({}),
+            new CopyWebpackPlugin([
+                {
+                    from: '**/*',
+                    to: 'mdb-addons',
+                    context: path.resolve(__dirname, 'src', 'vendors', 'mdb', 'mdb-addons'),
+                },
             ])
         ],
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js'],
+            modules: ["node_modules"],
+        },
         optimization: {
+            splitChunks: {
+                chunks: 'all',
+            },
             minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
+                new TerserPlugin({
                     parallel: true,
-                    sourceMap: true // set to true if you want JS source maps
+                    sourceMap: true,
+                    terserOptions: {
+                        output: {
+                            comments: false,
+                        },
+                    },
                 }),
-                ...(isDevelopment ? [] : [new OptimizeCSSAssetsPlugin({})])
-            ]
+                new OptimizeCSSAssetsPlugin({}),
+            ],
+        },
+        performance: {
+            hints: false,
         },
     };
 };

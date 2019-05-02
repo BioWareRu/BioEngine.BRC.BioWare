@@ -1,4 +1,4 @@
-import $ = require("jquery");
+import $ = require('jquery');
 
 $(function () {
     $('.youtube-video').on('click', function () {

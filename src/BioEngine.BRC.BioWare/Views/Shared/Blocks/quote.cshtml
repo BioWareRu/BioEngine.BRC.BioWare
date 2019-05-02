@@ -1,10 +1,10 @@
 @model BioEngine.Core.Site.Model.BlockViewModel<BioEngine.Core.Entities.Blocks.QuoteBlock, BioEngine.Core.Entities.Blocks.QuoteBlockData>
 
-<blockquote>
+<blockquote class="blockquote z-depth-1">
     <div>
         @Html.Raw(Model.Block.Data.Text)
     </div>
-    <div>
+    <div class="author">
         @if (!string.IsNullOrEmpty(Model.Block.Data.Link))
         {
             if (!string.IsNullOrEmpty(Model.Block.Data.Author))

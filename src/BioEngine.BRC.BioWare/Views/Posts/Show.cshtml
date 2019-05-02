@@ -4,8 +4,6 @@
 @{
     Layout = "~/Views/_Main.cshtml";
 }
-<div class="article-list">
-    @{
-        await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full));  
-    }
-</div>
+@{
+    await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full));
+}

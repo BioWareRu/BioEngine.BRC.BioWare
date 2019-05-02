@@ -2,20 +2,32 @@
 
 @if (Model.Block.Data.Pictures.Length == 1)
 {
-    <p style="text-align:center">
-        <img style="max-width:80%" src="@Model.Block.Data.Pictures.First().PublicUri">
-    </p>
+    var image = Model.Block.Data.Pictures.First();
+    <div class="full">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <a href="@image.PublicUri" target="_blank">
+                    <img src="@image.PublicUri" class="img-fluid z-depth-1"
+                         alt="@image.FileName"/>
+                </a>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-    <div style="display: flex">
+    <div class="row">
+
         @foreach (var picture in Model.Block.Data.Pictures)
         {
-            <div>
+            <div class="col-lg-4 col-md-12 mb-3">
                 <a href="@picture.PublicUri" target="_blank">
-                    <img src="@picture.PictureInfo.SmallThumbnail.PublicUri"/>
+                    <img src="@picture.PictureInfo.MediumThumbnail.PublicUri" class="img-fluid z-depth-1"
+                         alt="@picture.FileName"/>
                 </a>
             </div>
         }
     </div>
 }
+    
+

@@ -1,11 +1,61 @@
 @using System.Globalization
-@using BioEngine.Core.Site.Filters
+@using BioEngine.Core.Site.Features
 @using BioEngine.Core.Site.Model
-@using BioEngine.Extra.IPB.Filters
 @model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.Core.Entities.Post>
 @inject PageFeaturesCollection FeaturesCollection
 
-<article class="article-list__item">
+<div class="card mb-4 post">
+    <div class="card-body">
+        <div class="author">
+            <img src="@Model.Item.Author.PhotoUrl" alt="@Model.Item.Author.Name"/> @Model.Item.Author.Name
+            <time datetime="@Model.Item.DateAdded.DateTime.ToString("yyyy-MM-dd hh:mm:ss")">
+                @Model.Item.DateAdded.DateTime.ToString("dd.MM.yyyy HH:mm:ss", CultureInfo.InvariantCulture)</time>
+        </div>
+
+        <h2 class="card-title">
+
+            @switch (Model.Mode)
+            {
+                case ContentViewMode.Short:
+                    <a class="article-list__permalink" href="@Model.Item.PublicUrl">@Model.Item.Title</a>
+                    break;
+                case ContentViewMode.Full:
+                    @Model.Item.Title
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        </h2>
+        <div class="sections">
+            @Html.Raw(string.Join(", ", Model.Item.Sections.Select(section => $"<a href=\"{section.PublicUrl}\">{section.Title}</a>")))
+        </div>
+        @{
+            await Html.RenderPartialAsync("Blocks/Blocks", new ContentEntityViewModel(Model.Item, Model.Mode));
+        }
+        @if (Model.Item.Tags.Any())
+        {
+            <div class="tags">
+                Тэги:
+
+                @Html.Raw(string.Join(", ", Model.Item.Tags.Select(tag => $"<a href=\"/posts/tag/{tag.Name}\">{tag.Name}</a>")))
+            </div>
+        }
+
+        <footer class="article-list__footer">
+            <div class="article-list__footer-controls">
+                @{
+                    var commentsCountFeature = FeaturesCollection.GetFeature<ICommentsCountFeature>(Model.Item);
+                    if (commentsCountFeature != null)
+                    {
+                        <a class="article-list__comments" href="@commentsCountFeature.CommentsUrl">@Html.Raw(commentsCountFeature.CommentsCountString)</a>
+                    }
+                }
+            </div>
+        </footer>
+    </div>
+</div>
+
+@*<article class="article-list__item">
     <header class="article-list__header">
         <div class="article-list__title-wrap">
             <h2 class="article-list__title">
@@ -27,9 +77,7 @@
         </div>
     </header>
     <div class="b-text">
-        @{
-            await Html.RenderPartialAsync("Blocks/Blocks", new ContentEntityViewModel(Model.Item, Model.Mode));
-        }
+        
     </div>
     <footer class="article-list__footer">
 
@@ -45,4 +93,4 @@
 
         </div>
     </footer>
-</article>
+</article>*@

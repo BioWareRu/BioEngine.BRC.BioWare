@@ -2,6 +2,7 @@
     .youtube-video {
         position: relative;
         width: 560px;
+        max-width: 100%;
         margin: 0 auto;
         cursor: pointer;
         background-size: cover;
@@ -66,9 +67,9 @@
                 }
             }
         }
-        
+
         &.init {
-            background-image: none!important;
+            background-image: none !important;
         }
     }
 }

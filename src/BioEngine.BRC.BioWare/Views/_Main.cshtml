@@ -1,5 +1,5 @@
-﻿@model BioEngine.Core.Site.Model.PageViewModel
-@using BioEngine.BRC.BioWare.Helpers
+﻿@using BioEngine.Extra.Twitter
+@model BioEngine.Core.Site.Model.PageViewModel
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width"/>
     @{
         var meta = await Model.GetMetaAsync();
+        var twitterProperties = await Model.GetSitePropertiesAsync<TwitterSitePropertiesSet>();
     }
     <title>@meta.Title</title>
     <meta name="description" content="@Html.Raw(meta.Description)"/>
@@ -21,56 +22,218 @@
     <meta property="og:description" content="@Html.Raw(meta.Description)"/>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@@biowareru"/>
     <meta name="twitter:title" content="@Html.Raw(meta.Title)"/>
     <meta name="twitter:description" content="@Html.Raw(meta.Description)"/>
     <meta property="twitter:image:src" content="@Html.Raw(meta.ImageUrl)"/>
-
+    @if (twitterProperties != null && twitterProperties.IsEnabled && !string.IsNullOrEmpty(twitterProperties.Handle))
+    {
+        <meta name="twitter:site" content="@twitterProperties.Handle"/>
+    }
     <!-- G+ -->
     <meta itemprop="name" content="@Html.Raw(meta.Title)"/>
     <meta itemprop="description" content="@Html.Raw(meta.Description)"/>
     <meta itemprop="image" content="@Html.Raw(meta.ImageUrl)"/>
-    @await Html.WebpackStylesAsync("page-common")
-    @RenderSection("styles", false)
+
+    <link rel="canonical" href="@Html.Raw(meta.CurrentUrl)"/>
+    <link type="text/css" href="/dist/main.css" rel="stylesheet"/>
+
 </head>
-<body class="body_me3">
-<header class="header">
-    <div class="header__content">
-        <a href="/" class="header__logo-link">
-            <img src="/img/header__logo.png" alt="logo"/>
-        </a>
-        <nav class="header__menu">
-            <vc:menu></vc:menu>
-        </nav>
-    </div>
-</header>
-<div class="page-layout">
-    <main class="page-layout__content">
-        @RenderBody()
-    </main>
-</div>
-<!--footer-->
-<footer class="footer">
-    <div class="footer__content">
-        <a class="footer__logo" href="/">
-            <img class="footer__logo-img" src="/img/footer__logo.png" alt="bioware.ru"/>
-        </a>
-        <div class="footer__copyright-text">
-            При любом публичном использовании материалов сайта ссылка на <a href="/"
-                                                                            class="link-on-dark">
-                www.bioware.ru
+<body>
+
+<!--Main Navigation-->
+<header>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark darken-2 scrolling-navbar">
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand waves-effect" href="/" target="_blank">
+                BioWare Russian Community
             </a>
-            обязательна. <br/>
-            Полное копирование допускается не иначе как с письменного разрешения администрации.
+
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="https://forum.bioware.ru" target="_blank">Форум</a>
+                    </li>
+                    @* ReSharper disable Html.PathError *@
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/games.html">Игры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/articles.html">Статьи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/video.html">Видео</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/files.html">Файлы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/gallery.html">Галерея</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect" href="/pages/about.html">О BioWare</a>
+                    </li>
+                    @* ReSharper restore Html.PathError *@
+                </ul>
+
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="https://twitter.com/biowareru" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-facebook-f mr-3"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/biowareru" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-twitter mr-3"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.youtube.com/c/rubioware" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-youtube mr-3"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.twitch.tv/brcstream" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-twitch mr-3"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://discord.gg/NEEk48k" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-discord mr-3"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
         </div>
-        <address class="footer__contacts">
-            2005-@DateTime.Now.Year © <a class="link-on-dark" href="/">www.BioWare.ru</a>
-            <br>
-            <a href="mailto:bioteam@bioware.ru" class="link-on-dark">bioteam@bioware.ru</a>
-        </address>
+    </nav>
+    <!-- Navbar -->
+
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="mt-5 pt-5">
+    <div class="container">
+
+        <!--Section: Post-->
+        <section class="mt-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-9 mb-4">
+
+                    @RenderBody()
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-3 mb-4">
+
+                    <!--Card-->
+                    <div class="card mb-4 patreon-widget black">
+
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h4 class="card-title">BRC на Patreon</h4>
+                            <div class="patreon-progress">
+                                Собрано: <span class="">$27 из $50</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="patreon-description">
+                                <strong>Ближайшая цель</strong>: Обязуемся раз в месяц проводить стрим или записывать подкаст. Тема стрима/подкаста выбирается путём голосования патронов и команды сайта.
+                            </div>
+                            <a href="https://www.patreon.com/bePatron?u=6790376">
+                                <img src="/img/patreon.png" alt="Become a Patron">
+                            </a>
+
+                        </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </section>
+        <!--Section: Post-->
+
     </div>
+</main>
+<!--Main layout-->
+
+<!--Footer-->
+<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <div class="pt-4">
+        <p>При любом публичном использовании материалов сайта ссылка на <a href="https://www.bioware.ru">www.bioware.ru</a> обязательна. Полное копирование допускается не иначе как с письменного разрешения администрации.</p>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+        <a href="https://twitter.com/biowareru" target="_blank">
+            <i class="fab fa-facebook-f mr-3"></i>
+        </a>
+
+        <a href="https://twitter.com/biowareru" target="_blank">
+            <i class="fab fa-twitter mr-3"></i>
+        </a>
+
+        <a href="https://www.youtube.com/c/rubioware" target="_blank">
+            <i class="fab fa-youtube mr-3"></i>
+        </a>
+
+        <a href="https://www.twitch.tv/brcstream" target="_blank">
+            <i class="fab fa-twitch mr-3"></i>
+        </a>
+        <a href="https://discord.gg/NEEk48k" target="_blank">
+            <i class="fab fa-discord mr-3"></i>
+        </a>
+
+        <a href="https://github.com/biowareru" target="_blank">
+            <i class="fab fa-github mr-3"></i>
+        </a>
+
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+        © 2005-@DateTime.Now.Year <a href="https://www.bioware.ru" target="_blank"> www.BioWare.ru </a>
+    </div>
+    <!--/.Copyright-->
+
 </footer>
-@await Html.WebpackScriptsAsync("page-common")
-@RenderSection("scripts", required: false)
+<!--/.Footer-->
+<script src="/dist/bundle.js"></script>
+<script src="/dist/vendors~main.bundle.js"></script>
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
 </body>
 </html>

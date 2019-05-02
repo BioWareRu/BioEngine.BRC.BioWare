@@ -1,11 +1,9 @@
-@using System.Reflection
-@using BioEngine.Core.DB
 @using BioEngine.Core.Entities.Blocks
 @using BioEngine.Core.Site.Model
 @model BioEngine.Core.Site.Model.ContentEntityViewModel
 @{
 
-    foreach (var block in Model.Item.Blocks)
+    foreach (var block in Model.Item.Blocks.OrderBy(b => b.Position))
     {
         if (block is CutBlock)
         {
@@ -17,10 +15,9 @@
 
         var modelType = typeof(BlockViewModel<,>).MakeGenericType(block.GetType(), block.GetData().GetType());
         var model = Activator.CreateInstance(modelType, block, Model.Item);
-        var blockType = block.GetType().GetCustomAttribute<TypedEntityAttribute>().Type;
-        <div class="block-@blockType">
+        <div class="block block-@block.Type">
             @{
-                await Html.RenderPartialAsync($"Blocks/{blockType}", model);
+                await Html.RenderPartialAsync($"Blocks/{block.Type}", model);
             }
         </div>
         if (block is CutBlock)
@@ -30,29 +27,5 @@
                 break;
             }
         }
-
-@*         switch (block) *@
-@*         { *@
-@*             case TextBlock text: *@
-@*                 await Html.RenderPartialAsync("Blocks/Text", new BlockViewModel<TextBlock, TextBlockData>(text, Model.Item)); *@
-@*                 break; *@
-@*             case CutBlock cut: *@
-@*                 if (Model.Mode == ContentViewMode.Full) *@
-@*                 { *@
-@*                     continue; *@
-@*                 } *@
-@*                 await Html.RenderPartialAsync("Blocks/Cut", new BlockViewModel<CutBlock, CutBlockData>(cut, Model.Item)); *@
-@*                 allBlocksRendered = true; *@
-@*                 break; *@
-@*              *@
-@*             default: *@
-@*                 <div>@block.TypeTitle</div> *@
-@*                 break; *@
-@*         } *@
-@*         if (allBlocksRendered) *@
-@*         { *@
-@*             break; *@
-@*         } *@
     }
 }
-

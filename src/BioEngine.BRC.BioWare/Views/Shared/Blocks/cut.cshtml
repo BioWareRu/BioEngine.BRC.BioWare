@@ -1,6 +1,6 @@
 @model BioEngine.Core.Site.Model.BlockViewModel<BioEngine.Core.Entities.Blocks.CutBlock, BioEngine.Core.Entities.Blocks.CutBlockData>
 
-<a href="@Model.ContentEntity.PublicUrl" class="cutlink">
+<a href="@Model.ContentEntity.PublicUrl" class="btn btn-primary btn-md waves-effect waves-light">
     @{
         if (string.IsNullOrEmpty(Model.Block.Data.ButtonText))
         {

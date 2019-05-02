@@ -1,0 +1,44 @@
+@import "~bootstrap/scss/bootstrap";
+
+$roboto-font-path: './../../node_modules/mdbootstrap/font/roboto/';
+
+$image-path: './../../node_modules/mdbootstrap/img/';
+@import '~mdbootstrap/scss/mdb.scss';
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import "post";
+@import "blocks/youtube";
+@import "blocks/blockquote";
+@import "blocks/file";
+@import "blocks/gallery";
+@import "blocks/twitter";
+@import "blocks/twitch";
+@import "widgets/pateron";
+
+body {
+    background: #111 url(../img/body__mea.jpg) no-repeat fixed;
+    background-size: cover;
+
+    header {
+        nav {
+            background: rgba(0, 0, 0, 0.4);
+        }
+    }
+}
+
+.card-body {
+    time {
+        font-size: 0.9em;
+    }
+
+    iframe {
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
