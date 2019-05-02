@@ -5,5 +5,5 @@
     Layout = "~/Views/_Main.cshtml";
 }
 @{
-    await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full));
+    await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full, Model.Site));
 }
