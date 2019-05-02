@@ -41,7 +41,7 @@
         @if (Model.Item.Tags.Any())
         {
             <div class="row tags">
-                <div class="col-3">
+                <div class="col-12">
                     Тэги:
 
                     @Html.Raw(string.Join(", ", Model.Item.Tags.Select(tag => $"<a href=\"/posts/tag/{tag.Name}\">{tag.Name}</a>")))
