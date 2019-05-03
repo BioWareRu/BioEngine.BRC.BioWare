@@ -6,25 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\"/>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App"/>
-    <PackageReference Include="BioEngine.Core.Infra" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Core.Infra')"/>
-    <PackageReference Include="BioEngine.Core.Site" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Core.Site')"/>
-    <PackageReference Include="BioEngine.BRC.Domain" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.BRC.Domain')"/>
-    <PackageReference Include="BioEngine.Extra.IPB" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.IPB')"/>
-    <PackageReference Include="BioEngine.Extra.Twitter" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.Twitter')"/>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="BioEngine.Core.Infra" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Core.Infra')" />
+    <PackageReference Include="BioEngine.Core.Site" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Core.Site')" />
+    <PackageReference Include="BioEngine.BRC.Domain" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.BRC.Domain')" />
+    <PackageReference Include="BioEngine.Extra.IPB" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.IPB')" />
+    <PackageReference Include="BioEngine.Extra.Twitter" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.Twitter')" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BioEngine.Core.Infra\src\BioEngine.Core.Infra\BioEngine.Core.Infra.csproj" Condition="Exists('..\..\..\BioEngine.Core.Infra')"/>
-    <ProjectReference Include="..\..\..\BioEngine.Core.Site\src\BioEngine.Core.Site\BioEngine.Core.Site.csproj" Condition="Exists('..\..\..\BioEngine.Core.Site')"/>
-    <ProjectReference Include="..\..\..\BioEngine.BRC.Domain\src\BioEngine.BRC.Domain\BioEngine.BRC.Domain.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Domain')"/>
-    <ProjectReference Include="..\..\..\BioEngine.Extra.IPB\src\BioEngine.Extra.IPB\BioEngine.Extra.IPB.csproj" Condition="Exists('..\..\..\BioEngine.Extra.IPB')"/>
-    <ProjectReference Include="..\..\..\BioEngine.Extra.Twitter\src\BioEngine.Extra.Twitter\BioEngine.Extra.Twitter.csproj" Condition="Exists('..\..\..\BioEngine.Extra.Twitter')"/>
+    <ProjectReference Include="..\..\..\BioEngine.Core.Infra\src\BioEngine.Core.Infra\BioEngine.Core.Infra.csproj" Condition="Exists('..\..\..\BioEngine.Core.Infra')" />
+    <ProjectReference Include="..\..\..\BioEngine.Core.Site\src\BioEngine.Core.Site\BioEngine.Core.Site.csproj" Condition="Exists('..\..\..\BioEngine.Core.Site')" />
+    <ProjectReference Include="..\..\..\BioEngine.BRC.Domain\src\BioEngine.BRC.Domain\BioEngine.BRC.Domain.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Domain')" />
+    <ProjectReference Include="..\..\..\BioEngine.Extra.IPB\src\BioEngine.Extra.IPB\BioEngine.Extra.IPB.csproj" Condition="Exists('..\..\..\BioEngine.Extra.IPB')" />
+    <ProjectReference Include="..\..\..\BioEngine.Extra.Twitter\src\BioEngine.Extra.Twitter\BioEngine.Extra.Twitter.csproj" Condition="Exists('..\..\..\BioEngine.Extra.Twitter')" />
   </ItemGroup>
   <ItemGroup>
-    <MvcRazorFilesToCompile Include="Views\**\*.cshtml"/>
+    <MvcRazorFilesToCompile Include="Views\**\*.cshtml" />
   </ItemGroup>
 </Project>
