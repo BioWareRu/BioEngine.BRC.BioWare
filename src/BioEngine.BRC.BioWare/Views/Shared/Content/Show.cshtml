@@ -1,8 +1,8 @@
 @using System.Globalization
-@using BioEngine.Core.Site.Features
+@using BioEngine.Core.Comments
 @using BioEngine.Core.Site.Model
 @model BioEngine.Core.Site.Model.ContentViewModel<BioEngine.Core.Entities.Post>
-@inject PageFeaturesCollection FeaturesCollection
+@inject ICommentsProvider CommentsProvider
 
 @{
     var dateString = Model.Item.DateAdded.DateTime.Year == DateTime.Now.Year ? Model.Item.DateAdded.DateTime.ToString("d MMMM") : null;
@@ -51,12 +51,10 @@
         <div class="row justify-content-between">
             <div class="col-3">
                 @{
-                    var commentsCountFeature = FeaturesCollection.GetFeature<ICommentsCountFeature>(Model.Item);
-                    if (commentsCountFeature != null)
-                    {
-                        <a class="btn-sm btn-blue waves-effect waves-light" href="@commentsCountFeature.CommentsUrl">
-                            <i class="fas fa-comment-alt fa-fw"></i> @commentsCountFeature.CommentsCount</a>
-                    }
+                    var commentsCount = await CommentsProvider.GetCommentsCountAsync(Model.Item);
+                    var commentsUrl = await CommentsProvider.GetCommentsUrlAsync(Model.Item);
+                    <a class="btn-sm btn-blue waves-effect waves-light" href="@commentsUrl">
+                        <i class="fas fa-comment-alt fa-fw fa-inverse"></i> @commentsCount</a>
                 }
             </div>
             <div class="col-5" style="text-align: right">
