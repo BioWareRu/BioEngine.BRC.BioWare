@@ -1,4 +1,5 @@
-﻿@using BioEngine.Extra.Twitter
+﻿@using BioEngine.BRC.BioWare.ViewComponents
+@using BioEngine.Extra.Twitter
 @model BioEngine.Core.Site.Model.PageViewModel
 
 <!DOCTYPE html>
@@ -148,28 +149,7 @@
                 <div class="col-md-3 mb-4">
 
                     <!--Card-->
-                    <div class="card mb-4 patreon-widget black">
-
-
-                        <!--Card content-->
-                        <div class="card-body">
-                            <h4 class="card-title">BRC на Patreon</h4>
-                            <div class="patreon-progress">
-                                Собрано: <span class="">$27 из $50</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="patreon-description">
-                                <strong>Ближайшая цель</strong>: Обязуемся раз в месяц проводить стрим или записывать подкаст. Тема стрима/подкаста выбирается путём голосования патронов и команды сайта.
-                            </div>
-                            <a href="https://www.patreon.com/bePatron?u=6790376">
-                                <img src="/img/patreon.png" alt="Become a Patron">
-                            </a>
-
-                        </div>
-
-                    </div>
+                    @await Component.InvokeAsync(typeof(PatreonWidgetViewComponent))
                     <!--/.Card-->
 
                 </div>
