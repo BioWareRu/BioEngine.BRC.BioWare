@@ -32,8 +32,8 @@ namespace BioEngine.BRC.BioWare.Patreon
                     return JsonConvert.DeserializeObject<T>(json);
                 }
 
-                _logger.LogError($"Error accessing patreon: {response.StatusCode}");
-                throw new Exception($"Error accessing patreon: {response.StatusCode}");
+                _logger.LogError($"Error accessing patreon: {response.StatusCode.ToString()}");
+                throw new Exception($"Error accessing patreon: {response.StatusCode.ToString()}");
             }
         }
 
