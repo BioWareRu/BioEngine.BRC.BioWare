@@ -1,9 +1,7 @@
-@using BioEngine.Core.Entities
-@using BioEngine.Core.Site.Model
+@using BioEngine.Core.Comments
 @model BioEngine.Core.Site.Model.EntityViewModel<BioEngine.Core.Entities.Post>
+@inject ICommentsProvider CommentsProvider
 @{
     Layout = "~/Views/_Main.cshtml";
-}
-@{
-    await Html.RenderPartialAsync("Content/Show", new ContentViewModel<Post>(Model.Entity, ContentViewMode.Full, Model.Site));
+    await Html.RenderPartialAsync("Post", Model);
 }
