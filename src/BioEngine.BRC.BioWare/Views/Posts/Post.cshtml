@@ -6,36 +6,38 @@
 @{
     var dateString = Model.Entity.DateAdded.DateTime.Year == DateTime.Now.Year ? Model.Entity.DateAdded.DateTime.ToString("d MMMM") : null;
 }
-<div class="card mb-4 post">
-    <div class="card-body">
-        <div class="author">
-            <a href="@Model.Entity.Author.ProfileUrl">
-                <img src="@Model.Entity.Author.PhotoUrl" alt="@Model.Entity.Author.Name" class="rounded-circle img-fluid"/> @Model.Entity.Author.Name</a>
-            <time datetime="@Model.Entity.DateAdded.DateTime.ToString("s", CultureInfo.InvariantCulture)">@dateString в @Model.Entity.DateAdded.DateTime.ToShortTimeString()</time>
-        </div>
+<article class="card mb-4 post">
+    <section class="card-body">
+        <header>
+            <div class="author">
+                <a href="@Model.Entity.Author.ProfileUrl">
+                    <img src="@Model.Entity.Author.PhotoUrl" alt="@Model.Entity.Author.Name" class="rounded-circle img-fluid"/> @Model.Entity.Author.Name</a>
+                <time datetime="@Model.Entity.DateAdded.DateTime.ToString("s", CultureInfo.InvariantCulture)">@dateString в @Model.Entity.DateAdded.DateTime.ToShortTimeString()</time>
+            </div>
 
-        <h2 class="card-title">
+            <h2 class="card-title">
 
-            @switch (Model.Mode)
-            {
-                case EntityViewMode.List:
-                    <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
-                    break;
-                case EntityViewMode.Entity:
-                    @Model.Entity.Title
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        </h2>
+                @switch (Model.Mode)
+                {
+                    case EntityViewMode.List:
+                        <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
+                        break;
+                    case EntityViewMode.Entity:
+                        @Model.Entity.Title
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            </h2>
+        </header>
         <div class="sections">
             @Html.Raw(string.Join(", ", Model.Entity.Sections.Select(section => $"<a href=\"{section.PublicUrl}\">{section.Title}</a>")))
         </div>
         @{
             await Html.RenderPartialAsync("Blocks/Blocks", Model.ContentEntityViewModel());
         }
-    </div>
-    <div class="card-footer">
+    </section>
+    <footer class="card-footer">
         @if (Model.Entity.Tags.Any())
         {
             <div class="row tags">
@@ -85,5 +87,5 @@
                 </a>
             </div>
         </div>
-    </div>
-</div>
+    </footer>
+</article>
