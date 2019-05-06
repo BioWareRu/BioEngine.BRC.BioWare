@@ -3,27 +3,29 @@
 @{
     Layout = "~/Views/_Main.cshtml";
 }
-<div class="card mb-4 post">
-    <div class="card-body">
-        <h2 class="card-title">
+<article class="card mb-4 post">
+    <section class="card-body">
+        <header>
+            <h2 class="card-title">
 
-            @switch (Model.Mode)
-            {
-                case EntityViewMode.List:
-                    <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
-                    break;
-                case EntityViewMode.Entity:
-                    @Model.Entity.Title
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        </h2>
+                @switch (Model.Mode)
+                {
+                    case EntityViewMode.List:
+                        <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
+                        break;
+                    case EntityViewMode.Entity:
+                        @Model.Entity.Title
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            </h2>
+        </header>
         @{
             await Html.RenderPartialAsync("Blocks/Blocks", Model.ContentEntityViewModel());
         }
-    </div>
-    <div class="card-footer">
+    </section>
+    <footer class="card-footer">
         <div class="row justify-content-between">
             <div class="col-3">
 
@@ -52,5 +54,5 @@
                 </a>
             </div>
         </div>
-    </div>
-</div>
+    </footer>
+</article>
