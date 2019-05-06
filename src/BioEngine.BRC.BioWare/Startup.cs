@@ -1,6 +1,9 @@
 ﻿using System;
 using BioEngine.BRC.BioWare.Patreon;
 using BioEngine.Core.Site;
+using BioEngine.Extra.IPB.Auth;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +23,14 @@ namespace BioEngine.BRC.BioWare
             {
                 o.ServiceUrl = new Uri(Configuration["BE_PATREON_SERVICE_URL"]);
             });
+            services.AddIpbOauthAuthentication(Configuration);
+        }
+
+        protected override void ConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            base.ConfigureApp(app, env);
+
+            app.UseAuthentication();
         }
     }
 }
