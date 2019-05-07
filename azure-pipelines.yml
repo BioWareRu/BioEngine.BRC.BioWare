@@ -30,7 +30,7 @@ steps:
           projects: '**/*.csproj'
 
     - script: |
-          docker build -f src/BioEngine.BRC.BioWare/Dockerfile src/BioEngine.BRC.BioWare/publish -t $(ImageName)
+          docker build -f src/BioEngine.BRC.BioWare/Dockerfile ./publish -t $(ImageName)
       displayName: 'build docker image'
 
     - script: |
