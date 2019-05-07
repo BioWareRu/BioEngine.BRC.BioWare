@@ -17,6 +17,10 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
+                    loader: 'exports-loader?window.angular',
+                    test: require.resolve('angular'),
+                },
+                {
                     test: /\.tsx?$/,
                     use: [
                         {
@@ -65,7 +69,8 @@ module.exports = (env, argv) => {
                 jQuery: 'jquery',
                 'window.$': 'jquery',
                 'window.jQuery': 'jquery',
-                Waves: 'node-waves',
+                angular: 'angular',
+                'window.angular': 'angular',
                 _: 'underscore',
                 Promise: 'es6-promise',
             }),

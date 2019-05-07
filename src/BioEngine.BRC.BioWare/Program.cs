@@ -4,8 +4,8 @@ using BioEngine.Core.Infra;
 using BioEngine.Core.Site;
 using BioEngine.Extra.IPB;
 using JetBrains.Annotations;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace BioEngine.BRC.BioWare
 {
@@ -17,8 +17,8 @@ namespace BioEngine.BRC.BioWare
         }
 
         [PublicAPI]
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .AddBioEngineModule<CoreModule, CoreModuleConfig>(config =>
                 {
                     config.Assemblies.Add(typeof(Developer).Assembly);
@@ -29,6 +29,9 @@ namespace BioEngine.BRC.BioWare
                 .AddBioEngineModule<InfraModule>()
                 .AddBioEngineModule<IPBSiteModule>()
                 .AddBioEngineModule<SiteModule>()
-                .UseStartup<Startup>();
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

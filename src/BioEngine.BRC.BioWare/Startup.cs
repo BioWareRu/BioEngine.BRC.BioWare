@@ -1,11 +1,12 @@
 ﻿using System;
 using BioEngine.BRC.BioWare.Patreon;
+using BioEngine.Core.Infra.Controllers;
 using BioEngine.Core.Site;
 using BioEngine.Extra.IPB.Auth;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace BioEngine.BRC.BioWare
 {
@@ -24,13 +25,15 @@ namespace BioEngine.BRC.BioWare
                 o.ServiceUrl = new Uri(Configuration["BE_PATREON_SERVICE_URL"]);
             });
             services.AddIpbOauthAuthentication(Configuration);
+            services.AddControllersWithViews().AddApplicationPart(typeof(LogsController).Assembly);
         }
 
-        protected override void ConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
+        protected override void ConfigureApp(IApplicationBuilder app, IHostEnvironment env)
         {
             base.ConfigureApp(app, env);
 
             app.UseAuthentication();
+            app.UseAuthorization();
         }
     }
 }

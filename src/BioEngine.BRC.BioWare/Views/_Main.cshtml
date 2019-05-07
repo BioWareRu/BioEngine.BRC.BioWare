@@ -141,7 +141,7 @@
                 <!--Grid column-->
                 <div class="col-md-3 mb-4">
 
-                    @Html.Partial("~/Views/Shared/UserBlock.cshtml")
+                    @await Html.PartialAsync("~/Views/Shared/UserBlock.cshtml")
                     
                     <!--Card-->
                     @await Component.InvokeAsync(typeof(PatreonWidgetViewComponent))
