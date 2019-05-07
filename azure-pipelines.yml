@@ -1,40 +1,38 @@
 pool:
-  vmImage: Ubuntu 16.04
+  vmImage: 'Ubuntu 16.04'
+
 variables:
-  Version: 3.0.$(Build.BuildId)
-  ImageName: 'biowareru/bioengine-brc-bw:$(Version)'
-stages:
-  - stage: Build
-    jobs:
-      - job: BuildJob
-        steps:
-          - task: DotNetCoreCLI@2
-            inputs:
-              command: restore
-              projects: '**/*.csproj'
-              feedsToUse: select
-              verbosityRestore: minimal
-              vstsFeed: BioEngine
-          - task: DotNetCoreCLI@2
-            inputs:
-              command: custom
-              custom: publish
-              publishWebProjects: false
-              zipAfterPublish: false
-              modifyOutputPath: false
-              arguments: '--no-restore -c Release --output ./publish'
-              projects: '**/*.csproj'
-          - script: >
-              docker build -f src/BioEngine.BRC.BioWare/Dockerfile
-              src/BioEngine.BRC.BioWare/publish -t $(ImageName)
-            displayName: build docker image
-  - stage: push
-    jobs:
-      - job: PushJob
-        steps:
-          - script: |
-              docker login -u $(dockerId) -p $(dockerPswd)
-            displayName: login to docker hub
-          - script: |
-              docker push $(ImageName)
-            displayName: push image to docker hub
+  Version: '3.0.$(Build.BuildId)'
+  ImageName: biowareru/bioengine-brc-bw:$(Version)
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    verbosityRestore: 'minimal'
+    vstsFeed: 'BioEngine'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    custom: publish
+    publishWebProjects: false
+    zipAfterPublish: false
+    modifyOutputPath: false
+    arguments: '--no-restore -c Release --output ./publish'
+    projects: '**/*.csproj'
+
+- script: |
+    docker build -f src/BioEngine.BRC.BioWare/Dockerfile src/BioEngine.BRC.BioWare/publish -t $(ImageName)
+  displayName: 'build docker image'
+  
+- script: |
+    docker login -u $(dockerId) -p $(dockerPswd)
+  displayName: 'login to docker hub'
+
+- script: |
+    docker push $(ImageName)
+  displayName: 'push image to docker hub'
+    
