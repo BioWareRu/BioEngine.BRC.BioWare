@@ -84,7 +84,7 @@ namespace BioEngine.BRC.BioWare.Controllers
                     x => new Uri(x.PublicUrl, UriKind.Relative),
                     x => GetDescriptionFromHtml((x.Blocks.FirstOrDefault(b => b is TextBlock) as TextBlock)
                         ?.Data
-                        .Text));
+                        .Text), x => x.DateUpdated);
                 return searchBlock;
             }
 

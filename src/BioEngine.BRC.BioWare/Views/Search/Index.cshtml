@@ -1,3 +1,4 @@
+@using System.Globalization
 @model BioEngine.Core.Site.Controllers.SearchViewModel
 @{
     Layout = "~/Views/_Main.cshtml";
@@ -37,9 +38,10 @@
                     {
                         foreach (var item in block.Items)
                         {
+                            var dateString = item.Date.DateTime.Year == DateTime.Now.Year ? item.Date.DateTime.ToString("d MMMM") : null;
                             <div class="search-page__item">
                                 <a class="search-page__link" href="@item.Url">@item.Title</a>
-
+                                <time datetime="@item.Date.DateTime.ToString("s", CultureInfo.InvariantCulture)">@dateString в @item.Date.DateTime.ToShortTimeString()</time>
                                 <p class="search-page__desc">@Html.Raw(item.Text)</p>
                             </div>
                         }
