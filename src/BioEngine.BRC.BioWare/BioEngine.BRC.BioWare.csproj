@@ -16,6 +16,7 @@
     <PackageReference Include="BioEngine.BRC.Domain" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.BRC.Domain')" />
     <PackageReference Include="BioEngine.Extra.IPB" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.IPB')" />
     <PackageReference Include="BioEngine.Extra.Twitter" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.Extra.Twitter')" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0-preview5-19227-01" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BioEngine.Core.Infra\src\BioEngine.Core.Infra\BioEngine.Core.Infra.csproj" Condition="Exists('..\..\..\BioEngine.Core.Infra')" />

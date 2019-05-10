@@ -13,8 +13,11 @@ namespace BioEngine.BRC.BioWare
 {
     public class Startup : BioEngineStartup
     {
-        public Startup(IConfiguration configuration) : base(configuration)
+        private readonly IHostEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IHostEnvironment environment) : base(configuration)
         {
+            _environment = environment;
         }
 
         public override void ConfigureServices(IServiceCollection services)
@@ -30,6 +33,10 @@ namespace BioEngine.BRC.BioWare
                 .AddControllersWithViews()
                 .AddApplicationPart(typeof(LogsController).Assembly)
                 .AddApplicationPart(typeof(UserController).Assembly);
+            if (_environment.IsDevelopment())
+            {
+                services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            }
         }
 
         protected override void ConfigureApp(IApplicationBuilder app, IHostEnvironment env)

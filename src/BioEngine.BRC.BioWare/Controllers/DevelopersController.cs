@@ -1,4 +1,5 @@
 using BioEngine.BRC.Domain.Entities;
+using BioEngine.Core.Repository;
 using BioEngine.Core.Site;
 using BioEngine.Core.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BioEngine.BRC.BioWare.Controllers
 {
     [Route("/developers")]
-    public class DevelopersController : SiteController<Developer>
+    public class DevelopersController : SectionController<Developer>
     {
-        public DevelopersController(BaseControllerContext<Developer> context) : base(context)
+        public DevelopersController(BaseControllerContext<Developer> context, PostsRepository postsRepository) : base(
+            context, postsRepository)
         {
         }
     }
