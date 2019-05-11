@@ -1,8 +1,6 @@
 @using System.Globalization
-@using BioEngine.Core.Comments
 @using BioEngine.Core.Site.Model
-@model BioEngine.Core.Site.Model.EntityViewModel<BioEngine.Core.Entities.Post>
-@inject ICommentsProvider CommentsProvider
+@model BioEngine.Core.Site.Model.PostViewModel
 @{
     var dateString = Model.Entity.DateAdded.DateTime.Year == DateTime.Now.Year ? Model.Entity.DateAdded.DateTime.ToString("d MMMM") : Model.Entity.DateAdded.DateTime.ToString("d MMMM yyyy");
 }
@@ -57,10 +55,8 @@
         <div class="row justify-content-between">
             <div class="col-3">
                 @{
-                    var commentsCount = await CommentsProvider.GetCommentsCountAsync(Model.Entity);
-                    var commentsUrl = await CommentsProvider.GetCommentsUrlAsync(Model.Entity);
-                    <a class="btn-sm btn-blue waves-effect waves-light" href="@commentsUrl">
-                        <i class="fas fa-comment-alt fa-fw fa-inverse"></i> @commentsCount</a>
+                    <a class="btn-sm btn-blue waves-effect waves-light" href="@Model.CommentsUri">
+                        <i class="fas fa-comment-alt fa-fw fa-inverse"></i> @Model.CommentsCount</a>
                 }
             </div>
             <div class="col-5" style="text-align: right">
