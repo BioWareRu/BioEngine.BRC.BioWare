@@ -2,6 +2,7 @@
 using BioEngine.BRC.BioWare.Patreon;
 using BioEngine.Core.Infra.Controllers;
 using BioEngine.Core.Site;
+using BioEngine.Extra.Ads.Site;
 using BioEngine.Extra.IPB.Auth;
 using BioEngine.Extra.IPB.Controllers;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +33,8 @@ namespace BioEngine.BRC.BioWare
             services
                 .AddControllersWithViews()
                 .AddApplicationPart(typeof(LogsController).Assembly)
-                .AddApplicationPart(typeof(UserController).Assembly);
+                .AddApplicationPart(typeof(UserController).Assembly)
+                .AddApplicationPart(typeof(AdsSiteController).Assembly);
             if (_environment.IsDevelopment())
             {
                 services.AddControllersWithViews().AddRazorRuntimeCompilation();

@@ -2,6 +2,8 @@
 using BioEngine.Core;
 using BioEngine.Core.Infra;
 using BioEngine.Core.Site;
+using BioEngine.Extra.Ads;
+using BioEngine.Extra.Ads.Entities;
 using BioEngine.Extra.IPB;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +24,7 @@ namespace BioEngine.BRC.BioWare
                 .AddBioEngineModule<CoreModule, CoreModuleConfig>(config =>
                 {
                     config.Assemblies.Add(typeof(Developer).Assembly);
+                    config.Assemblies.Add(typeof(Ad).Assembly);
                     config.EnableValidation = true;
                     config.MigrationsAssembly = typeof(Developer).Assembly;
                     config.EnableElasticSearch = true;
@@ -29,6 +32,7 @@ namespace BioEngine.BRC.BioWare
                 .AddBioEngineModule<InfraModule>()
                 .AddBioEngineModule<IPBSiteModule>()
                 .AddBioEngineModule<SiteModule>()
+                .AddBioEngineModule<AdsModule>()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

@@ -1,4 +1,5 @@
 ﻿@using BioEngine.BRC.BioWare.ViewComponents
+@using BioEngine.Extra.Ads.Site
 @using BioEngine.Extra.Twitter
 @model BioEngine.Core.Site.Model.PageViewModel
 
@@ -152,9 +153,15 @@
                         </div>
                     </div>
 
+                    @await Component.InvokeAsync(typeof(AdViewComponent))
+
                     <!--Card-->
                     @await Component.InvokeAsync(typeof(PatreonWidgetViewComponent))
                     <!--/.Card-->
+
+                    @await Component.InvokeAsync(typeof(AdViewComponent))
+
+                    @await Component.InvokeAsync(typeof(AdViewComponent))
 
                 </div>
                 <!--Grid column-->
