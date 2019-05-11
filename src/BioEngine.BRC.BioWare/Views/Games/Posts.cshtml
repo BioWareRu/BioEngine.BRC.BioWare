@@ -1,7 +1,4 @@
-@using BioEngine.Core.Comments
-@using BioEngine.Core.Site.Model
 @model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.Post>
-@inject ICommentsProvider CommentsProvider
 @{
     Layout = "~/Views/_Main.cshtml";
 }
@@ -27,11 +24,5 @@
     </ul>
 </section>
 @{
-    var comments = await CommentsProvider.GetCommentsDataAsync(Model.Items);
+    await Html.RenderPartialAsync("PostsList", Model);
 }
-@foreach (var item in Model.Items)
-{
-    var postComments = comments[item.Id];
-    await Html.RenderPartialAsync("Post", new PostViewModel(Model.GetContext(), item, postComments.count, postComments.uri));
-}
-<vc:pager page="@Model.Page" total-items="@Model.TotalItems" items-per-page="@Model.ItemsPerPage"></vc:pager>
