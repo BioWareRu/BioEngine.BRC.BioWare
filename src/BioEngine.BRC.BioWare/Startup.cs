@@ -1,6 +1,6 @@
 ﻿using System;
 using BioEngine.BRC.BioWare.Patreon;
-using BioEngine.Core.Infra.Controllers;
+using BioEngine.Core.Logging.Controllers;
 using BioEngine.Core.Site;
 using BioEngine.Extra.Ads.Site;
 using BioEngine.Extra.IPB.Auth;
