@@ -31,12 +31,19 @@
             url = "#";
         }
         <li class="@liSubClass">
-            <a href="@url" class="@linkClass" data-toggle="dropdown">
-                @menuItem.Label
-            </a>
+
             @if (menuItem.Items.Any())
             {
+                <a href="@url" class="@linkClass" data-toggle="dropdown">
+                    @menuItem.Label
+                </a>
                 @await Html.PartialAsync("Menu", new MenuLevel {Items = menuItem.Items, Level = Model.Level + 1})
+            }
+            else
+            {
+                <a href="@url" class="@linkClass">
+                    @menuItem.Label
+                </a>
             }
         </li>
     }
