@@ -39,7 +39,7 @@ namespace BioEngine.BRC.BioWare
                     {
                         ApiClientId = configuration["BE_IPB_OAUTH_CLIENT_ID"],
                         ApiClientSecret = configuration["BE_IPB_OAUTH_CLIENT_SECRET"],
-                        CallbackPath = configuration["BE_IPB_CALLBACK_PATH"],
+                        CallbackPath = "/login/ipb",
                         AuthorizationEndpoint = configuration["BE_IPB_AUTHORIZATION_ENDPOINT"],
                         TokenEndpoint = configuration["BE_IPB_TOKEN_ENDPOINT"],
                         ApiReadonlyKey = configuration["BE_IPB_API_READONLY_KEY"]
