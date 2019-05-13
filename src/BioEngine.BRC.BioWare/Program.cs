@@ -82,6 +82,7 @@ namespace BioEngine.BRC.BioWare
                     config.CallbackPath = configuration["BE_IPB_CALLBACK_PATH"];
                     config.AuthorizationEndpoint = configuration["BE_IPB_AUTHORIZATION_ENDPOINT"];
                     config.TokenEndpoint = configuration["BE_IPB_TOKEN_ENDPOINT"];
+                    config.ApiReadonlyKey = configuration["BE_IPB_API_READONLY_KEY"];
                 })
                 .AddModule<SiteModule, SiteModuleConfig>((config, configuration, env) =>
                 {
