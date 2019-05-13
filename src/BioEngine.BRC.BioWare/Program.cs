@@ -69,8 +69,24 @@ namespace BioEngine.BRC.BioWare
                     config.SecretKey = configuration["BE_STORAGE_S3_SECRET_KEY"];
                 })
                 .AddModule<SeoModule>()
-                .AddModule<IPBSiteModule>()
-                .AddModule<SiteModule>()
+                .AddModule<IPBSiteModule, IPBModuleConfig>((config, configuration, env) =>
+                {
+                    if (!Uri.TryCreate(configuration["BE_IPB_URL"], UriKind.Absolute, out var ipbUrl))
+                    {
+                        throw new ArgumentException($"Can't parse IPB url; {configuration["BE_IPB_URL"]}");
+                    }
+
+                    config.Url = ipbUrl;
+                    config.ApiClientId = configuration["BE_IPB_OAUTH_CLIENT_ID"];
+                    config.ApiClientSecret = configuration["BE_IPB_OAUTH_CLIENT_SECRET"];
+                    config.CallbackPath = configuration["BE_IPB_CALLBACK_PATH"];
+                    config.AuthorizationEndpoint = configuration["BE_IPB_AUTHORIZATION_ENDPOINT"];
+                    config.TokenEndpoint = configuration["BE_IPB_TOKEN_ENDPOINT"];
+                })
+                .AddModule<SiteModule, SiteModuleConfig>((config, configuration, env) =>
+                {
+                    config.SiteId = Guid.Parse(configuration["BE_SITE_ID"]);
+                })
                 .AddModule<AdsModule>()
                 .GetHostBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>

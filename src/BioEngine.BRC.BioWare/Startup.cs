@@ -3,7 +3,6 @@ using BioEngine.BRC.BioWare.Patreon;
 using BioEngine.Core.Logging.Controllers;
 using BioEngine.Core.Site;
 using BioEngine.Extra.Ads.Site;
-using BioEngine.Extra.IPB.Auth;
 using BioEngine.Extra.IPB.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +28,6 @@ namespace BioEngine.BRC.BioWare
             {
                 o.ServiceUrl = new Uri(Configuration["BE_PATREON_SERVICE_URL"]);
             });
-            services.AddIpbOauthAuthentication(Configuration);
             services
                 .AddControllersWithViews()
                 .AddApplicationPart(typeof(LogsController).Assembly)
