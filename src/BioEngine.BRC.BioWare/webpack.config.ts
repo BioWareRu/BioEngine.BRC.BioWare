@@ -2,9 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
     return {
@@ -12,6 +12,7 @@ module.exports = (env, argv) => {
         output: {
             path: path.resolve(__dirname, 'wwwroot/dist'),
             filename: 'bundle.js',
+            publicPath: '/dist'
         },
         mode: argv.mode,
         module: {
@@ -46,7 +47,7 @@ module.exports = (env, argv) => {
                     loader: 'file-loader',
                     options: {
                         outputPath: 'assets/',
-                        publicPath: "/dist/assets"
+                        publicPath: '/dist/assets'
                     },
                 },
                 {
@@ -54,7 +55,7 @@ module.exports = (env, argv) => {
                     loader: 'file-loader',
                     options: {
                         outputPath: 'assets/',
-                        publicPath: "/dist/assets"
+                        publicPath: '/dist/assets'
                     },
                 },
             ],
@@ -85,11 +86,21 @@ module.exports = (env, argv) => {
                     to: 'mdb-addons',
                     context: path.resolve(__dirname, 'src', 'vendors', 'mdb', 'mdb-addons'),
                 },
-            ])
+            ]),
+            new HtmlWebpackPlugin({
+                filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_Styles.cshtml'),
+                template: path.join(__dirname, '/Views/Shared/Assets/_StylesTemplate.cshtml'),
+                inject: false
+            }),
+            new HtmlWebpackPlugin({
+                filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_Scripts.cshtml'),
+                template: path.join(__dirname, '/Views/Shared/Assets/_ScriptsTemplate.cshtml'),
+                inject: false
+            })
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
-            modules: ["node_modules"],
+            modules: ['node_modules'],
         },
         optimization: {
             splitChunks: {

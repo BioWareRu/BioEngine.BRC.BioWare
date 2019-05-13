@@ -54,8 +54,8 @@
     <meta itemprop="image" content="@Html.Raw(meta.ImageUrl)"/>
 
     <link rel="canonical" href="@Html.Raw(meta.CurrentUrl)"/>
-    <link type="text/css" href="/dist/main.css" rel="stylesheet"/>
-
+    @await Html.PartialAsync("Assets/_Gen_Styles")
+    @RenderSection("styles", required: false)
 </head>
 <body>
 
@@ -224,8 +224,8 @@
 
 </footer>
 <!--/.Footer-->
-<script src="/dist/bundle.js"></script>
-<script src="/dist/vendors~main.bundle.js"></script>
 <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+@await Html.PartialAsync("Assets/_Gen_Scripts")
+@RenderSection("scripts", required: false)
 </body>
 </html>
