@@ -28,8 +28,9 @@ steps:
     - task: Bash@3
       inputs:
         targetType: 'inline'
+        workingDirectory: 'src/BioEngine.BRC.BioWare'
         script: 'npm ci
-          npm run build-prod'
+          npm run build-prod'   
 
     - task: DotNetCoreCLI@2
       inputs:
