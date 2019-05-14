@@ -22,7 +22,7 @@ namespace BioEngine.BRC.BioWare
         public static IHostBuilder CreateWebHostBuilder(string[] args) =>
             new Core.BioEngine(args)
                 .AddPostgresDb()
-                .AddModule<BrcDomainModule>()
+                .AddBrcCommon()
                 .AddModule<LokiLoggingModule, LokiLoggingConfig>((configuration, environment) =>
                     new LokiLoggingConfig(configuration["BRC_LOKI_URL"]))
                 .AddElasticSearch()

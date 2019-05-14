@@ -1,5 +1,4 @@
-﻿using System;
-using BioEngine.BRC.BioWare.Patreon;
+﻿using BioEngine.BRC.Domain;
 using BioEngine.Core.Logging.Controllers;
 using BioEngine.Core.Site;
 using BioEngine.Extra.Ads.Site;
@@ -23,15 +22,11 @@ namespace BioEngine.BRC.BioWare
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
-            services.AddSingleton<PatreonApiHelper>();
-            services.Configure<PatreonConfig>(o =>
-            {
-                o.ServiceUrl = new Uri(Configuration["BE_PATREON_SERVICE_URL"]);
-            });
             services
                 .AddControllersWithViews()
                 .AddApplicationPart(typeof(LogsController).Assembly)
                 .AddApplicationPart(typeof(UserController).Assembly)
+                .AddApplicationPart(typeof(BrcDomainModule).Assembly)
                 .AddApplicationPart(typeof(AdsSiteController).Assembly);
             if (_environment.IsDevelopment())
             {
