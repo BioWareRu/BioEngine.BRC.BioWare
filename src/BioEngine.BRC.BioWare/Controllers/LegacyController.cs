@@ -9,7 +9,7 @@ namespace BioEngine.BRC.BioWare.Controllers
         [HttpGet("/news/rss")]
         public IActionResult RssOld()
         {
-            return RedirectToActionPermanent("RssAsync", "Posts");
+            return RedirectToActionPermanent("Rss", "Posts");
         }
     }
 }
