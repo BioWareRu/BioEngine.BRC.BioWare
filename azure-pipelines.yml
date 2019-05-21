@@ -53,15 +53,13 @@ steps:
           arguments: '--no-restore -c Release --output ./publish'
           projects: '**/*.csproj'
 
-    - script: |
-          docker build -f src/BioEngine.BRC.BioWare/Dockerfile ./publish -t $(ImageName)
-      displayName: 'build docker image'
-
-    - script: |
-          docker login -u $(dockerId) -p $(dockerPswd)
-      displayName: 'login to docker hub'
-
-    - script: |
-          docker push $(ImageName)
-      displayName: 'push image to docker hub'
+    - task: Docker@2
+      displayName: 'build and push image'
+      inputs:
+          containerRegistry: 'BioWareRU DockerHub'
+          repository: 'biowareru/bioengine-brc-bw'
+          command: 'buildAndPush'
+          Dockerfile: 'src/BioEngine.BRC.BioWare/Dockerfile'
+          buildContext: './publish'
+          tags: '$(Version)'
     
