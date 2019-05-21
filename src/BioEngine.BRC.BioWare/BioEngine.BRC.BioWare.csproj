@@ -17,7 +17,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.Core.Site')" />
   </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Web\ts\blocks\gallery.ts" />
-  </ItemGroup>
 </Project>
