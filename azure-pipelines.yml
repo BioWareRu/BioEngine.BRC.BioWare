@@ -33,12 +33,14 @@ steps:
       inputs:
           command: 'custom'
           customCommand: 'ci'
+          workingDir: 'src/BioEngine.BRC.BioWare'
 
     - task: Npm@1
       displayName: 'build frontend'
       inputs:
           command: 'custom'
           customCommand: 'run build-prod'
+          workingDir: 'src/BioEngine.BRC.BioWare'
 
     - task: DotNetCoreCLI@2
       displayName: 'publish app'
