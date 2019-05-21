@@ -1,5 +1,7 @@
 require('bootstrap/dist/js/bootstrap');
 require('mdbootstrap/js/mdb');
+require('mdbootstrap/js/addons/masonry.pkgd.min');
+require('mdbootstrap/js/addons/imagesloaded.pkgd.min');
 require('wow.js/dist/wow');
 import WOW = require('wow.js/dist/wow');
 
