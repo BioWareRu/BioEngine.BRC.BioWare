@@ -7,17 +7,20 @@ variables:
 
 steps:
     - task: UseDotNet@2
+      displayName: 'install .net core 3.0'
       inputs:
           packageType: sdk
           version: 3.0.100-preview5-011568
           includePreviewVersions: true
 
     - task: UseNode@1
+      displayName: 'install node'
       inputs:
-        version: '11.x'
-        checkLatest: true
-        
+          version: '11.x'
+          checkLatest: true
+
     - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
       inputs:
           command: restore
           projects: '**/*.csproj'
@@ -25,15 +28,20 @@ steps:
           verbosityRestore: 'minimal'
           vstsFeed: 'BioEngine'
 
-    - task: Bash@3
+    - task: Npm@1
+      displayName: 'install npm packages'
       inputs:
-        targetType: 'inline'
-        workingDirectory: 'src/BioEngine.BRC.BioWare'
-        script: |
-            npm ci
-            npm run build-prod
+          command: 'custom'
+          customCommand: 'ci'
+
+    - task: Npm@1
+      displayName: 'build frontend'
+      inputs:
+          command: 'custom'
+          customCommand: 'run build-prod'
 
     - task: DotNetCoreCLI@2
+      displayName: 'publish app'
       inputs:
           command: custom
           custom: publish
