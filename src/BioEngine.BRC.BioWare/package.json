@@ -17,7 +17,9 @@
         "wow.js": "^1.2.2"
     },
     "devDependencies": {
+        "@types/imagesloaded": "^4.1.1",
         "@types/jquery": "^3.3.29",
+        "@types/masonry-layout": "^4.2.1",
         "@types/node": "^12.0.0",
         "@types/twitter-for-web": "0.0.0",
         "awesome-typescript-loader": "^5.2.1",
