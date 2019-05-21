@@ -9,6 +9,7 @@ namespace BioEngine.BRC.BioWare.Controllers
         [HttpGet("/news/rss")]
         public IActionResult RssOld()
         {
+            // ReSharper disable once Mvc.ActionNotResolved
             return RedirectToActionPermanent("Rss", "Posts");
         }
     }
