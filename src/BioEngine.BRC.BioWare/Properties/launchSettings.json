@@ -6,19 +6,7 @@
             "applicationUrl": "https://localhost:5003;http://localhost:5002",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "BE_SITE_ID": "ccd1ddaa-665f-4ea3-bac0-b5edf90f0eb3"
-            }
-        },
-        "BioEngine.BRC.BioWare Watch": {
-            "commandName": "Executable",
-            "executablePath": "dotnet",
-            "workingDirectory": "$(ProjectDir)",
-            "commandLineArgs": "watch run",
-            "launchBrowser": false,
-            "applicationUrl": "https://localhost:5003;http://localhost:5002",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "BE_SITE_ID": "ccd1ddaa-665f-4ea3-bac0-b5edf90f0eb3"
+                "BE_SITE_ID": "024afdce-0bfd-45f3-b45b-db02b8e50e35"
             }
         }
     }
