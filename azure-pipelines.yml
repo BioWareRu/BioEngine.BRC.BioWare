@@ -56,10 +56,10 @@ stages:
                       projects: '**/*.csproj'
                       
                 - task: PublishPipelineArtifact@0
-                      displayName: 'Publish app as artifact'
-                      inputs:
-                          artifactName: 'publish'
-                          targetPath: './publish'
+                  displayName: 'Publish app as artifact'
+                  inputs:
+                      artifactName: 'publish'
+                      targetPath: './publish'
 
     - stage: Deploy
       dependsOn: Build
