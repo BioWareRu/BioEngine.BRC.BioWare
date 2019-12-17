@@ -17,7 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Common')" />
   </ItemGroup>
-  <Target Name="BuildFrontEnd" BeforeTargets="BeforeBuild">
+  <Target Name="BuildClientAssets" AfterTargets="Build" Condition="$(Configuration) == 'Release'">
     <Exec Command="npm ci" />
     <Exec Command="npm run build" />
   </Target>
