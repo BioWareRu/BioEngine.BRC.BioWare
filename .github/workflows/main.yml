@@ -1,0 +1,31 @@
+name: Build
+
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        container: ghcr.io/sitkoru/actions-container
+        env:
+            PROJECT: "BioEngine.BRC.BioWare"
+        steps:
+            -   uses: actions/checkout@v2
+            -   name: Install .NET
+                uses: actions/setup-dotnet@v1
+                with:
+                    dotnet-version: '3.1.x'
+            -   name: Install NodeJS
+                uses: actions/setup-node@v2.1.5
+                with:
+                    node-version: '13'
+            -   name: Build JS
+                working-directory: src/${{ env.PROJECT}}
+                run: |
+                    npm ci
+                    npm run build
+            -   name: Publish app
+                run: dotnet publish src/${{ env.PROJECT}}/${{ env.PROJECT}}.csproj --output /app/ --configuration Release

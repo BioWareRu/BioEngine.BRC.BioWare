@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A67D1F52-3989-4558-A675-70185122B235}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioEngine.BRC.BioWare", "src\BioEngine.BRC.BioWare\BioEngine.BRC.BioWare.csproj", "{A79CB68E-00D8-4CDC-986D-20725548ECC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{49880B10-3296-44C7-974B-2DA73F4E8A33}"
+ProjectSection(SolutionItems) = preProject
+	.github\dependabot.yml = .github\dependabot.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{107CDF62-FD89-4B3C-BA07-C4F1307750AB}"
+ProjectSection(SolutionItems) = preProject
+	.github\workflows\deploy.yml = .github\workflows\deploy.yml
+	.github\workflows\main.yml = .github\workflows\main.yml
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{FE614DD5-D38D-449E-9A6A-DD735A74E092}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	.gitignore = .gitignore
+	LICENSE = LICENSE
+	README.md = README.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|x64.Build.0 = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Debug|x86.Build.0 = Debug|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|x64.ActiveCfg = Release|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|x64.Build.0 = Release|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|x86.ActiveCfg = Release|Any CPU
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A79CB68E-00D8-4CDC-986D-20725548ECC7} = {A67D1F52-3989-4558-A675-70185122B235}
+		{107CDF62-FD89-4B3C-BA07-C4F1307750AB} = {49880B10-3296-44C7-974B-2DA73F4E8A33}
+	EndGlobalSection
+EndGlobal

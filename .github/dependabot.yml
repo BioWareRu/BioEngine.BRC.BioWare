@@ -1,6 +1,14 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/src/BioEngine.BRC.BioWare/"
+    directory: "/"
     schedule:
       interval: "daily"
+    assignees:
+      - "sonicgd"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "sonicgd"

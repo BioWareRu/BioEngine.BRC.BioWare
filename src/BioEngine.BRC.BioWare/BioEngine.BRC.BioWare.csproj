@@ -5,20 +5,8 @@
     <UserSecretsId>bw</UserSecretsId>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-    <Folder Include="wwwroot\dist" />
+    <PackageReference Include="BioEngine.BRC.Site" Version="3.2.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BioEngine.BRC.Site" Version="3.1.*" Condition="!Exists('..\..\..\BioEngine.BRC.Common')" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Common')" />
-  </ItemGroup>
-  <Target Name="BuildClientAssets" AfterTargets="Build" Condition="$(Configuration) == 'Release'">
-    <Exec Command="npm ci" />
-    <Exec Command="npm run build" />
-  </Target>
 </Project>
