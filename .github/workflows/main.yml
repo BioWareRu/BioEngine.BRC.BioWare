@@ -13,15 +13,11 @@ jobs:
         env:
             PROJECT: "BioEngine.BRC.BioWare"
         steps:
-            -   uses: actions/checkout@v2.3.4
-            -   name: Install .NET
-                uses: actions/setup-dotnet@v1.8.1
-                with:
-                    dotnet-version: '3.1.x'
+            -   uses: actions/checkout@v3
             -   name: Install NodeJS
-                uses: actions/setup-node@v2.4.0
+                uses: actions/setup-node@v3
                 with:
-                    node-version: '13'
+                    node-version: '16'
             -   name: Build JS
                 working-directory: src/${{ env.PROJECT}}
                 run: |
