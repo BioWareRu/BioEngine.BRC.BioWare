@@ -5,7 +5,8 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "~bioengine.brc.frontend/src/scss/index";
 
 body {  
-    background: #111 url(../img/body__mea.jpg) no-repeat fixed;
+    //background: #111 url(../img/body__mea.jpg) no-repeat fixed;
+    background: #111 url("https://brc.sitkocdn.ru/storage/da4.jpg") no-repeat fixed;
     background-size: cover;
 
     header {
